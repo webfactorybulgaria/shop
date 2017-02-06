@@ -62,12 +62,12 @@ class ShopSetupTables extends Migration
         Schema::create('item_attributes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('item_id')->unsigned();
-            $table->timestamps();
             $table->string('group_class')->nullable();
             $table->integer('group_value')->nullable();
             $table->string('attribute_class')->nullable();
             $table->integer('attribute_reference_id')->nullable();
             $table->string('attribute_value')->nullable();
+            $table->timestamps();
             $table->foreign('item_id')
                 ->references('id')
                 ->on('items')
@@ -138,20 +138,6 @@ class ShopSetupTables extends Migration
             $table->index(['gateway', 'transaction_id']);
             $table->index(['order_id', 'token']);
         });
-
-        Schema::create('item_attributes', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('item_id')->unsigned();
-            $table->timestamps();
-            $table->string('class')->nullable();
-            $table->string('reference_id')->nullable();
-            $table->foreign('item_id')
-                ->references('id')
-                ->on('items')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->index(['reference_id']);
-        });
     }
 
     /**
@@ -161,7 +147,6 @@ class ShopSetupTables extends Migration
      */
     public function down()
     {
-        Schema::drop('item_attributes');
         Schema::drop('transactions');
         Schema::drop('orders');
         Schema::drop('order_status');

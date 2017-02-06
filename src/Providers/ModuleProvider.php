@@ -16,7 +16,8 @@ class ModuleProvider extends ServiceProvider
 
         $vendorConfig = $this->app['config']->get('shop', []);
 
-        $this->app['config']->set('shop', array_merge_recursive($TypiCMSConfig['shop'], $vendorConfig));
+        if (!empty($TypiCMSConfig['shop']))
+            $this->app['config']->set('shop', array_merge_recursive($TypiCMSConfig['shop'], $vendorConfig));
 
         $this->mergeConfigFrom(
             __DIR__.'/../config/config.php', 'typicms.shop'
