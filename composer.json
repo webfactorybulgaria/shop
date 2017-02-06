@@ -1,0 +1,22 @@
+{
+    "name": "webfactorybulgaria/shop",
+    "description": "Shop module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Atanas Georgiev",
+            "email": "atanas.georgiev@webfactory.bg"
+        }
+    ],
+    "require": {
+        "webfactorybulgaria/core": "~4.1.0",
+        "webfactorybulgaria/laravel-shop": "^4.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "TypiCMS\\Modules\\Shop\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
