@@ -1,9 +1,13 @@
 <?php
 
 return [
-    'name'     => 'Objetos',
-    'products'  => 'objeto|objetos',
-    'New'      => 'Nuevo objeto',
-    'Edit'     => 'Editar objeto',
-    'Back'     => 'Volver a los objetos',
+    'name'     => 'Tienda',
+    'shop'  => 'shop|shop',
+    'Back'     => 'Volver a la tienda',
+
+    'preferences' => 'Ajustes',
+    'attributes' => [
+        'shop_title' => 'Título de la tienda',
+        'currency' => 'Moneda predeterminada'
+    ]
 ];

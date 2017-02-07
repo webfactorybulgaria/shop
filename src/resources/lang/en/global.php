@@ -6,7 +6,6 @@ return [
     'Back'     => 'Back to shop',
 
     'preferences' => 'Settings',
-    'preferences' => 'Settings',
     'attributes' => [
         'shop_title' => 'Shop title',
         'currency' => 'Default currency'

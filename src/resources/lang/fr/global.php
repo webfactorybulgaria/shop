@@ -1,9 +1,13 @@
 <?php
 
 return [
-    'name'     => 'Products',
-    'products'  => 'product|products',
-    'New'      => 'Nouveau product',
-    'Edit'     => 'Modifier product',
-    'Back'     => 'Retour à la liste des products',
+    'name'     => 'Boutique',
+    'shop'  => 'shop|shop',
+    'Back'     => 'Retour à la boutique',
+
+    'preferences' => 'Paramètres',
+    'attributes' => [
+        'shop_title' => 'Titre de la boutique',
+        'currency' => 'Devise par défaut'
+    ]
 ];

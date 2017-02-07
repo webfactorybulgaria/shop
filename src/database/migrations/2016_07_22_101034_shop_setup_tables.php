@@ -73,7 +73,7 @@ class ShopSetupTables extends Migration
                 ->on('items')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->index(['reference_id']);
+            $table->index(['attribute_reference_id']);
         });
         // Create table for storing coupons
         Schema::create('coupons', function (Blueprint $table) {

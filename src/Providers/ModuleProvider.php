@@ -43,6 +43,11 @@ class ModuleProvider extends ServiceProvider
         $app = $this->app;
 
         /*
+         * Register laravel-shop service provider
+         */
+        $app->register(\Amsgames\LaravelShop\LaravelShopProvider::class);
+
+        /*
          * Register route service provider
          */
         $app->register('TypiCMS\Modules\Shop\Shells\Providers\RouteServiceProvider');
