@@ -11,7 +11,7 @@ class SidebarViewComposer
 {
     public function compose(View $view)
     {
-        $view->sidebar->group(trans('shop::global.name'), function (SidebarGroup $group) {
+        $view->sidebar->group(trans('global.menus.shop'), function (SidebarGroup $group) {
             $group->id = 'shop';
             $group->addItem(trans('shop::global.preferences'), function (SidebarItem $item) {
                 $item->id = 'preferences';

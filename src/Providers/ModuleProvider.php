@@ -48,6 +48,12 @@ class ModuleProvider extends ServiceProvider
         $app->register(\Amsgames\LaravelShop\LaravelShopProvider::class);
 
         /*
+         * Register shop additional modules
+         */
+        $app->register('TypiCMS\Modules\Currencies\Shells\Providers\ModuleProvider');
+        $app->register('TypiCMS\Modules\Attributes\Shells\Providers\ModuleProvider');
+
+        /*
          * Register route service provider
          */
         $app->register('TypiCMS\Modules\Shop\Shells\Providers\RouteServiceProvider');

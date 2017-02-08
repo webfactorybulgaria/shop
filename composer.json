@@ -11,6 +11,7 @@
     "require": {
         "webfactorybulgaria/core": "~4.1.0",
         "webfactorybulgaria/laravel-shop": "~4.1.0",
+        "webfactorybulgaria/attributes": "~4.1.0",
         "webfactorybulgaria/currencies": "~4.1.0"
 
     },
