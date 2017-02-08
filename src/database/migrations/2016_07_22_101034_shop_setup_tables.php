@@ -15,6 +15,7 @@ class ShopSetupTables extends Migration
         Schema::create('cart', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id')->unsigned();
+            $table->string('session_id');
             $table->timestamps();
             $table->foreign('user_id')
                 ->references('id')

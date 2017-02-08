@@ -17,7 +17,9 @@
     },
     "autoload": {
         "psr-4": {
-            "TypiCMS\\Modules\\Shop\\": "src/"
+            "TypiCMS\\Modules\\Shop\\": "src/",
+            "TypiCMS\\Modules\\Products\\": "submodules/products/",
+            "TypiCMS\\Modules\\Combinations\\": "submodules/combinations/"
         }
     },
     "minimum-stability": "dev",
