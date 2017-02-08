@@ -30,6 +30,9 @@ class ModuleProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'shop');
 
         $this->publishes([
+            __DIR__.'/../../public' => public_path(),
+        ], 'views');
+        $this->publishes([
             __DIR__.'/../resources/views' => base_path('resources/views/vendor/shop'),
         ], 'views');
         $this->publishes([
@@ -50,6 +53,7 @@ class ModuleProvider extends ServiceProvider
         /*
          * Register shop additional modules
          */
+        $app->register('TypiCMS\Modules\Products\Shells\Providers\ModuleProvider');
         $app->register('TypiCMS\Modules\Combinations\Shells\Providers\ModuleProvider');
         $app->register('TypiCMS\Modules\Currencies\Shells\Providers\ModuleProvider');
         $app->register('TypiCMS\Modules\Attributes\Shells\Providers\ModuleProvider');
