@@ -18,6 +18,8 @@
     "autoload": {
         "psr-4": {
             "TypiCMS\\Modules\\Shop\\": "src/",
+            "TypiCMS\\Modules\\Orders\\": "submodules/orders/",
+            "TypiCMS\\Modules\\Coupons\\": "submodules/coupons/",
             "TypiCMS\\Modules\\Products\\": "submodules/products/",
             "TypiCMS\\Modules\\Combinations\\": "submodules/combinations/"
         }

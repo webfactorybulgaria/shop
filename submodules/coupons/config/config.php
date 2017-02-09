@@ -6,7 +6,7 @@ return [
         'id' => 'desc',
     ],
     'sidebar' => [
-        'icon' => 'icon fa fa-fw fa-shopping-bag',
-        'weight' => 1,
+        'icon' => 'icon fa fa-fw fa-sort-numeric-desc ',
+        'weight' => 20,
     ],
 ];

@@ -57,6 +57,8 @@ class ModuleProvider extends ServiceProvider
         $app->register('TypiCMS\Modules\Combinations\Shells\Providers\ModuleProvider');
         $app->register('TypiCMS\Modules\Currencies\Shells\Providers\ModuleProvider');
         $app->register('TypiCMS\Modules\Attributes\Shells\Providers\ModuleProvider');
+        $app->register('TypiCMS\Modules\Coupons\Shells\Providers\ModuleProvider');
+        $app->register('TypiCMS\Modules\Orders\Shells\Providers\ModuleProvider');
 
         /*
          * Register route service provider

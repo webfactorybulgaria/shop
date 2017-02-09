@@ -16,6 +16,12 @@ Add this to resources/assets/typicms/app.js:
         moduleName = 'attributes';
     }
 
+## Combinations ##
+add "js-combinatorics": "0.5.2" to package.json
+Run npm install
+add 'node_modules/js-combinatorics/combinatorics.js', to js-admin in gulpfile.js
+Run 
+gulp js-admin
 
 ## Users ##
 Add ShopUserTrait to model User
