@@ -10,6 +10,7 @@
         @include('shop::public._summary', ['cart' => $cart])
         
         @if(1) {{-- TODO: check for standart / digital product --}}
+
             @if(!empty($user))
                 @if(!empty($user->addresses) && $user->addresses->count())
                     @lang('db.Choose shipping address')

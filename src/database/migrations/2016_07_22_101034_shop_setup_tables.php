@@ -22,7 +22,7 @@ class ShopSetupTables extends Migration
                 ->on('')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->unique('user_id');
+            $table->unique(['user_id', 'session_id']);
         });
         // Create table for storing items
         Schema::create('items', function (Blueprint $table) {
@@ -52,8 +52,6 @@ class ShopSetupTables extends Migration
                 ->on('cart')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->unique(['sku', 'cart_id']);
-            $table->unique(['sku', 'order_id']);
             $table->index(['user_id', 'sku']);
             $table->index(['user_id', 'sku', 'cart_id']);
             $table->index(['user_id', 'sku', 'order_id']);
@@ -65,9 +63,9 @@ class ShopSetupTables extends Migration
             $table->bigIncrements('id');
             $table->integer('item_id')->unsigned();
             $table->string('group_class')->nullable();
-            $table->integer('group_value')->nullable();
+            $table->string('group_value')->nullable();
             $table->string('attribute_class')->nullable();
-            $table->integer('attribute_reference_id')->nullable();
+            $table->string('attribute_reference_id')->nullable();
             $table->string('attribute_value')->nullable();
             $table->timestamps();
             $table->foreign('item_id')

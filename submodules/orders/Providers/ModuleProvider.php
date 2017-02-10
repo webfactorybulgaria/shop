@@ -23,7 +23,7 @@ class ModuleProvider extends ServiceProvider
         );
 
         $modules = $this->app['config']['typicms']['modules'];
-        $this->app['config']->set('typicms.modules', array_merge(['orders' => ['linkable_to_page', 'srcDir' => __DIR__.'/../Shells/']], $modules));
+        $this->app['config']->set('typicms.modules', array_merge(['orders' => ['srcDir' => __DIR__.'/../Shells/']], $modules));
 
         $this->loadViewsFrom(__DIR__.'/../resources/views/', 'orders');
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'orders');
@@ -31,9 +31,9 @@ class ModuleProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../resources/views' => base_path('resources/views/vendor/orders'),
         ], 'views');
-        $this->publishes([
-            __DIR__.'/../database' => base_path('database'),
-        ], 'migrations');
+        // $this->publishes([
+        //     __DIR__.'/../database' => base_path('database'),
+        // ], 'migrations');
 
         AliasLoader::getInstance()->alias(
             'Orders',

@@ -22,7 +22,7 @@ class ModuleProvider extends ServiceProvider
         );
 
         $modules = $this->app['config']['typicms']['modules'];
-        $this->app['config']->set('typicms.modules', array_merge(['coupons' => ['linkable_to_page']], $modules));
+        $this->app['config']->set('typicms.modules', array_merge(['coupons' => ['srcDir' => __DIR__.'/../Shells/']], $modules));
 
         $this->loadViewsFrom(__DIR__.'/../resources/views/', 'coupons');
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'coupons');
@@ -30,9 +30,9 @@ class ModuleProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../resources/views' => base_path('resources/views/vendor/coupons'),
         ], 'views');
-        $this->publishes([
-            __DIR__.'/../database' => base_path('database'),
-        ], 'migrations');
+        // $this->publishes([
+        //     __DIR__.'/../database' => base_path('database'),
+        // ], 'migrations');
 
         AliasLoader::getInstance()->alias(
             'Coupons',

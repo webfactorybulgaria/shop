@@ -2,7 +2,7 @@
 
 namespace TypiCMS\Modules\Shop\Providers;
 
-/*use Illuminate\Foundation\AliasLoader;*/
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Core\Shells\Facades\TypiCMS;
 /*use TypiCMS\Modules\Core\Shells\Observers\SlugObserver;*/
@@ -30,6 +30,9 @@ class ModuleProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'shop');
 
         $this->publishes([
+            __DIR__ . '/../config/shop.php' => config_path('shop.php'),
+        ], 'shopconfig');
+        $this->publishes([
             __DIR__.'/../../public' => public_path(),
         ], 'views');
         $this->publishes([
@@ -38,6 +41,11 @@ class ModuleProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../database' => base_path('database'),
         ], 'migrations');
+
+        AliasLoader::getInstance()->alias(
+            'Shop',
+            \Amsgames\LaravelShop\LaravelShopFacade::class
+        );
 
     }
 
