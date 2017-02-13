@@ -27,16 +27,21 @@
                     </div>
                 </div>
             @else
-                <a href="javascript:;" onclick="$('#register-form').hide();$('#login-form').toggle()">Login</a> OR
-                <a href="javascript:;" onclick="$('#login-form').hide();$('#register-form').toggle()"">Register</a>
+                <a href="javascript:;" onclick="$('#register-form-container').hide();$('#login-form-container').toggle()">Login</a> OR
+                <a href="javascript:;" onclick="$('#login-form-container').hide();$('#register-form-container').toggle()">Register</a>
                 <div class="row">
-                    <div id="login-form" class="col-md-6" style="display:none;">
-                        {!! BootForm::open()->action(route('login')) !!}
+                    <div id="login-form-container" class="col-md-6" style="display:none;">
+                        <h1>@lang('users::global.Log in')</h1>
+                        <div class="alert alert-danger" id="login-error" style="display:none;"></div>
+                        {!! BootForm::open()->id('shop-login-form')->action(route('login')) !!}
+
                             @include('users::_form-login')
                         {!! BootForm::close() !!}
                     </div>
-                    <div id="register-form" class="col-md-6" style="display:none;">
-                        {!! BootForm::open()->action(route('register')) !!}
+                    <div id="register-form-container" class="col-md-6">
+                        <h1>@lang('users::global.Register')</h1>
+                        <div class="alert alert-danger" id="register-error" style="display:none;"></div>
+                        {!! BootForm::open()->id('shop-register-form')->action(route('register')) !!}
                             @include('users::_form-register')
                         {!! BootForm::close() !!}
                     </div>

@@ -28,8 +28,11 @@ Run
 
 ## Users ##
 
-In auth.php change the user model to 
+In config/auth.php 
+* change the user model to 
  TypiCMS\Modules\Shop\Shells\Models\User::class
+* you can set skip_activation to true
+
 
 
 # Frontend
