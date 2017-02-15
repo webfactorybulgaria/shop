@@ -16,7 +16,7 @@ class ApiController extends BaseApiController
      *  Array of endpoints that do not require authorization
      *  
      */
-    protected $publicEndpoints = [];
+    protected $publicEndpoints = ['process'];
 
     public function __construct(Repository $repository)
     {
