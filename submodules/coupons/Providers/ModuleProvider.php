@@ -30,9 +30,9 @@ class ModuleProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../resources/views' => base_path('resources/views/vendor/coupons'),
         ], 'views');
-        // $this->publishes([
-        //     __DIR__.'/../database' => base_path('database'),
-        // ], 'migrations');
+        $this->publishes([
+             __DIR__.'/../database' => base_path('database'),
+        ], 'migrations');
 
         AliasLoader::getInstance()->alias(
             'Coupons',
