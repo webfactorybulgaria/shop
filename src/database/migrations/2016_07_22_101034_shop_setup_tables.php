@@ -75,51 +75,7 @@ class ShopSetupTables extends Migration
                 ->onDelete('cascade');
             $table->index(['attribute_reference_id']);
         });
-        // Create table for storing coupons
-        Schema::create('coupons', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('code')->unique();
-            $table->string('name');
-            $table->string('description', 1024)->nullable();
-            $table->string('sku');
-            $table->decimal('value', 20, 2)->nullable();
-            $table->decimal('discount', 3, 2)->nullable();
-            $table->integer('active')->default(1);
-            $table->dateTime('starts_at')->nullable();
-            $table->dateTime('expires_at')->nullable();
-            $table->timestamps();
-            $table->index(['code', 'starts_at']);
-            $table->index(['code', 'expires_at']);
-            $table->index(['code', 'active']);
-            $table->index(['code', 'active', 'expires_at']);
-            $table->index(['sku']);
-        });
-        // Create table for storing coupons
-        Schema::create('order_status', function (Blueprint $table) {
-            $table->string('code', 32);
-            $table->string('name');
-            $table->string('description')->nullable();
-            $table->timestamps();
-            $table->primary('code');
-        });
-        // Create table for storing carts
-        Schema::create('orders', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('user_id')->unsigned();
-            $table->string('statusCode', 32);
-            $table->timestamps();
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->foreign('statusCode')
-                ->references('code')
-                ->on('order_status')
-                ->onUpdate('cascade');
-            $table->index(['user_id', 'statusCode']);
-            $table->index(['id', 'user_id', 'statusCode']);
-        });
+
         // Create table for storing transactions
         Schema::create('transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
@@ -148,9 +104,6 @@ class ShopSetupTables extends Migration
     public function down()
     {
         Schema::drop('transactions');
-        Schema::drop('orders');
-        Schema::drop('order_status');
-        Schema::drop('coupons');
         Schema::drop('item_attributes');
         Schema::drop('items');
         Schema::drop('cart');

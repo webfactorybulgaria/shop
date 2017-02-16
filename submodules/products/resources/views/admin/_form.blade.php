@@ -84,7 +84,7 @@
                         <div class="table-responsive">
 
                         </div>
-                        list with all specific rules goes here
+                        List with all specific rules goes here
                         <br>
                         @if(!empty($model->prices))
                             @foreach($model->prices as $price)
@@ -96,7 +96,7 @@
                         @endif
                         <br>
                         <br>
-                        <a class="btn-primary btn" href="{{ route('admin::create-productprice', $model->id) }}">@lang('validation.attributes.add new price rule')</a>
+                        <a class="btn-primary btn" href="{{ route('admin::create-productprice', $model->id) }}">@lang('products::global.attributes.add_new_price_rule')</a>
                         <br>
                         <br>
                     </div>
