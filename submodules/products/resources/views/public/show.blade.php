@@ -29,7 +29,7 @@
                             @elseif($group->type == 'colorbox')
                                 Available colors:
                                 @foreach($group->items->pluck('value', 'id') as $key => $color)
-                                <label for="{{$group->value . $key}}"">
+                                <label for="{{$group->value . $key}}">
                                     <div class="col-sm-1">
                                         {!! BootForm::radio('', $group->value, $key)->id($group->value . $key) !!}
                                     </div>
@@ -51,6 +51,7 @@
                     </div>
                 @endif
                 <button class="btn-primary btn" type="submit">@lang('db.Add to Basket')</button>
+                <a class="btn-primary btn" href="{{ route(config('app.locale') . '.shop.basket') }}">Basket</a>
             {!! BootForm::close() !!}
         </div>
     </article>
