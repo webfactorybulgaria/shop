@@ -36,6 +36,9 @@ class PublicController extends BasePublicController
     {
         $model = $this->repository->bySlug($slug);
 
+        app('JavaScript')->put('currentProduct', $model);
+        app('JavaScript')->put('combinations', $model->availableCombinations);
+
         return view('products::public.show')
             ->with(compact('model'));
     }

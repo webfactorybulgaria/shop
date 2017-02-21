@@ -29,14 +29,16 @@ class ApiController extends BaseApiController
     public function store()
     {
         $request = Request::all();
-        $condition = '';
         $models = [];
+        /*
+        $condition = '';
         foreach (explode(',', $request['attribute_combo']) as $value) {
             $condition .= "FIND_IN_SET('".$value."', attribute_combo) AND ";
         }
-
         $condition = rtrim($condition, ' AND ');
-        $exists = $this->repository->make()->where('product_id', $request['product_id'])->whereRaw($condition)->get();
+        */
+
+        $exists = $this->repository->make()->where('product_id', $request['product_id'])->exists($request['attribute_combo'])->get();
 
         if($exists->isEmpty()) {
             $model = $this->repository->create($request);

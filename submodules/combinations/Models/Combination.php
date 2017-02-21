@@ -48,8 +48,16 @@ class Combination extends Base
         return $this->present()->thumbSrc(null, 22);
     }
 
+    public function scopeExists($query, $combos)
+    {
+        if (!is_array($combos))
+            $combos = explode(',', $combos);
+        sort($combos, SORT_NUMERIC);
+
+        return $query->where('attribute_combo', implode(',', $combos));
+    }
     /**
-     * The banners belong to a product
+     * The combination belong to a product
      */
     public function product()
     {

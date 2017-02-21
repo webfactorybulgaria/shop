@@ -35,7 +35,9 @@ class PublicController extends BasePublicController
         $item = Item::find($itemId);
 
         $cart = Cart::current();
-        $cart->increase($item, $quantity);
+
+        if ($item->cart_id == $cart->id) // check if the item belongs to the current cart
+            $cart->increase($item, $quantity);
 
         return redirect()->back();
     }
@@ -50,7 +52,9 @@ class PublicController extends BasePublicController
         $item = Item::find($itemId);
 
         $cart = Cart::current();
-        $cart->remove($item, $quantity);
+
+        if ($item->cart_id == $cart->id) // check if the item belongs to the current cart
+            $cart->remove($item, $quantity);
 
         return redirect()->back();
     }

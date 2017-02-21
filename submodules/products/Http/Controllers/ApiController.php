@@ -137,13 +137,17 @@ class ApiController extends BaseApiController
         $response = new JsonResponse;
         $response->error = true;
 
-        Combinations::make()->where('product_id', $request['product'])->delete();
+        // Combinations::make()->where('product_id', $request['product'])->delete();
+        $productCombinations = Combinations::make()->where('product_id', $request['product'])->get()->pluck('attribute_combo', 'attribute_combo');
         if(empty($request['delete'])) {
             $combinations = [];
             foreach ($request['combos'] as $key => $combo) {
-                $combinations[$key]['attribute_combo'] = implode(',', $combo);
-                $combinations[$key]['stock'] = $request['defaultStock'];
-                $combinations[$key]['product_id'] = $request['product'];
+                sort($combo);
+                if (empty($productCombinations[implode(',', $combo)])) {
+                    $combinations[$key]['attribute_combo'] = implode(',', $combo);
+                    $combinations[$key]['stock'] = $request['defaultStock'];
+                    $combinations[$key]['product_id'] = $request['product'];
+                }
             }
 
             if(Combination::insert($combinations)) {

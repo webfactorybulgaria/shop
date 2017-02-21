@@ -18,7 +18,11 @@
 
         .attribute-with-color {
             display: inline-block;
-            width: 55px;
+            /*width: 55px;*/
+        }
+        .attribute-value {
+            display: inline-block;
+            min-width:25px;
         }
     </style>
 @endsection
@@ -153,11 +157,14 @@
 
                     <tr ng-repeat="(key, combination) in combinations">
                         <td style="line-height: 34px;">
-                            <span ng-repeat="attr in combination.attrs">
-                                <span ng-show="attributes[attr].attribute_group.type == 'colorbox'" class="color-attribute" style="background-color: @{{ attributes[attr].value }}"></span>
-                                <span ng-bind="attributes[attr].value" ng-class="{'attribute-with-color' : attributes[attr].attribute_group.type == 'colorbox'}"></span>
-                                <span ng-hide="$last"><span ng-hide="attributes[attr].attribute_group.type == 'colorbox'">&nbsp;&nbsp;</span>-&nbsp;&nbsp;</span>
+
+                            <span ng-repeat="attribute in TypiCMS.attributes">
+                                <span ng-if="combination.attrs.indexOf(attribute.id + '') !== -1">
+                                    <span ng-show="attributes[attribute.id].attribute_group.type == 'colorbox'" class="color-attribute" style="background-color: @{{ attributes[attribute.id].value }}"></span>
+                                    <span ng-bind="attributes[attribute.id].value" class="attribute-value"></span>;&nbsp;&nbsp;
+                                </span>
                             </span>
+
                         </td>
                         <td>
                             <input class="form-control" type="text" ng-model="combinations[key].stock" change-on-blur="save(key)">
