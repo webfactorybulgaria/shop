@@ -105,8 +105,19 @@ class Product extends Base
     public function attributes()
     {
         return $this->morphToMany('TypiCMS\Modules\Attributes\Shells\Models\AttributeGroup', 'attributable')
+            ->with('items')
             ->orderBy('value')
             ->withTimestamps();
+    }
+
+    /**
+     * A product has many attribute combinations.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function combinations()
+    {
+        return $this->hasMany('TypiCMS\Modules\Combinations\Shells\Models\Combination');
     }
 
     /**
@@ -117,6 +128,35 @@ class Product extends Base
     public function prices()
     {
         return $this->hasMany('TypiCMS\Modules\Products\Shells\Models\ProductPrice');
+    }
+
+    public function getAvailableAttributesAttribute()
+    {
+        $availableAttributes = $this->attributes()->get();
+
+        $combinations = $this->combinations;
+        $available = [];
+        if (!empty($combinations)) {
+
+            foreach($this->combinations->pluck('attribute_combo') as $combo) {
+                $available = array_merge($available, explode(',', $combo));
+            }
+            $available = array_flip($available);
+
+        }
+        foreach ($availableAttributes as $key => $group) {
+            $availableAttributes[$key]->items =
+                    empty($available) ?
+                    $group->items->pluck('value', 'id')->all() :
+                    array_intersect_key($group->items->pluck('value', 'id')->all(), $available);
+        }
+        // dd($availableAttributes);
+        return $availableAttributes;
+    }
+
+    public function getAvailableCombinationsAttribute()
+    {
+        return $this->combinations->keyBy('attribute_combo');
     }
 
 }

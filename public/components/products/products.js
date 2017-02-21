@@ -56,6 +56,7 @@ angular.module('products')
     $scope.loading = false;
     $scope.defaultStock = 0;
 
+    $scope.TypiCMS = TypiCMS;
     $scope.product = loadProduct(TypiCMS.product);
     $scope.attributes = loadAttributes(TypiCMS.attributes);
     $scope.combinations = loadCombinations(TypiCMS.combinations);

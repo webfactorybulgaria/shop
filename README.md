@@ -7,7 +7,7 @@ Add this to the config/app.php
 
  TypiCMS\Modules\Shop\Shells\Providers\ModuleProvider::class,
 
-
+Run
  php artisan vendor:publish --tag=shopconfig
  php artisan vendor:publish
  php artisan migrate
@@ -41,6 +41,6 @@ Create and link a page to the shop module
 
 ## Basket ##
 Add the following code to your template to include the basket:
-@section('shop-basket')
-<a href="{{ route($lang.'.shop.basket') }}">Basket</a>
-@show
+ @section('shop-basket')
+ <a href="{{ route($lang.'.shop.basket') }}">Basket</a>
+ @show
