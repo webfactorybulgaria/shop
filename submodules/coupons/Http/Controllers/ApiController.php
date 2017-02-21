@@ -16,7 +16,7 @@ class ApiController extends BaseApiController
      *  Array of endpoints that do not require authorization
      *  
      */
-    protected $publicEndpoints = ['process'];
+    protected $publicEndpoints = ['process', 'remove'];
 
     public function __construct(Repository $repository)
     {
@@ -72,7 +72,7 @@ class ApiController extends BaseApiController
     }
 
     /**
-     * Display a listing of the resource.
+     * Add coupon code
      *
      * @return \Illuminate\View\View
      */
@@ -88,5 +88,20 @@ class ApiController extends BaseApiController
         return response()->json([
             'promocode' => $promocode,
         ]);
+    }
+
+    /**
+     * Remove coupon code
+     *
+     * @return \Illuminate\View\View
+     */
+    public function remove()
+    {
+        session()->forget('coupon');
+        if (session('coupon') == null) {
+            return response()->json([
+                'removed' => true,
+            ]);
+        }
     }
 }

@@ -41,6 +41,7 @@ class RouteServiceProvider extends ServiceProvider
              */
             $router->get('api/coupons', 'ApiController@index')->name('api::index-coupons');
             $router->get('api/coupons/process', 'ApiController@process')->name('api::process-coupon');
+            $router->get('api/coupons/remove', 'ApiController@remove')->name('api::remove-coupon');
             $router->put('api/coupons/{coupon}', 'ApiController@update')->name('api::update-coupon');
             $router->delete('api/coupons/{coupon}', 'ApiController@destroy')->name('api::destroy-coupon');
         });

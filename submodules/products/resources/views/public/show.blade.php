@@ -54,5 +54,46 @@
             {!! BootForm::close() !!}
         </div>
     </article>
+    <!-- <div onload="alert('asd')" ng-app="promocode" ng-controller="PromocodeController">
+        <div ng-show="!promocode">
+            Have a promocode?
+
+            <form name="promoForm">
+                <input type="text" name="coupon" id="coupon" class="form-control" ng-model="form.coupon" required>
+
+                <div class="btn-toolbar">
+                    <div class="btn-primary btn" id="apply-promo" ng-click="checkCoupon()" name="applypromo">@lang('validation.attributes.apply promo')</div>
+                </div>
+            </form>
+        </div>
+        <div ng-show="promocode">
+            <p>Promocode @{{promocode.code}} applied.</p>
+            <p ng-show="promocode.discount > 0">Discount: @{{promocode.discount}}%</p>
+            <p ng-show="promocode.value > 0">Discount: @{{promocode.value}} currency</p>
+        </div>
+    </div> -->
+
+    <div>
+        <div class="ask-for-promo">
+            <span>Have a promocode?</span>
+            <form name="promoForm" id="promo-form">
+                <input type="text" name="coupon" id="coupon" class="form-control" required>
+                <div class="btn-toolbar">
+                    <div class="btn-primary btn" id="apply-promo" name="applypromo">@lang('validation.attributes.apply promo')</div>
+                </div>
+            </form>
+        </div>
+        <div class="applied-promocode hidden">
+            <p>Promocode '<span class="code"></span>' applied.</p>
+            <p class="promocode-discount">Discount: <span class="promo-discount-value"></span>%</p>
+            <p class="promocode-value">Discount: <span class="promo-value"></span> currency</p>
+            <div class="btn-toolbar">
+                <div class="btn-primary btn" id="remove-promo" name="removepromo">Remove promo code</div>
+            </div>
+        </div>
+        <div class="promo-invalid alert alert-danger hidden">
+            Your promo code is expired or invalid.
+        </div>
+    </div>
 
 @endsection

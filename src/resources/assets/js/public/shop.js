@@ -73,4 +73,46 @@ $(function(){
             }
         });
     });
+
+    $('#apply-promo').click(function(e){
+        e.preventDefault();
+        var formData = { coupon : $('#coupon').val() };
+        $.ajax({
+            url: '/api/coupons/process',
+            type:'GET',
+            data:formData,
+            success:function(data) {
+                if (data.promocode) {
+                    $('.code').text(data.promocode.code);
+                    $('.applied-promocode').removeClass('hidden');
+                    $('.ask-for-promo, .promo-invalid').addClass('hidden');
+                    $('.promo-discount-value').text(data.promocode.discount);
+                    $('.promo-value').text(data.promocode.value);
+                }
+                else {
+                    $('.ask-for-promo, .promo-invalid').removeClass('hidden');
+                    $('.applied-promocode').addClass('hidden');
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    });
+
+    $('#remove-promo').click(function(e){
+        e.preventDefault();
+        var formData = {};
+        $.ajax({
+            url: '/api/coupons/remove',
+            type:'GET',
+            data:formData,
+            success:function(data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.log(error);
+            }
+        });
+    });
 });

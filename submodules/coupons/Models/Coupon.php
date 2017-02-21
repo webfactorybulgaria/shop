@@ -2,6 +2,7 @@
 
 namespace TypiCMS\Modules\Coupons\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Laracasts\Presenter\PresentableTrait;
 use TypiCMS\Modules\Core\Shells\Models\Base;
 use TypiCMS\Modules\History\Shells\Traits\Historable;
@@ -36,6 +37,11 @@ class Coupon extends Base
         'expires_at'
     ];
 
+    protected $dates = [
+        'starts_at',
+        'expires_at'
+    ];
+
     /**
      * Creates a new instance of the model.
      *
@@ -48,4 +54,15 @@ class Coupon extends Base
 
     }
 
+    /**
+     * Rewrite base function ('status' needs to be 'active'; Translations case is removed)
+     *
+     * @param Builder $query
+     *
+     * @return Builder $query
+     */
+    public function scopeOnline(Builder $query)
+    {
+        return $query->where('active', 1);
+    }
 }
