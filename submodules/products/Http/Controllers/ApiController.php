@@ -47,7 +47,6 @@ class ApiController extends BaseApiController
 
     public function getOne($product)
     {
-        $model = $this->repository->create(Request::all());
         $product = $this->repository->make()->where('products.id', $product)->first();
         $product->load('attributes');
         $product->attributes->load('items');

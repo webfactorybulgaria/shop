@@ -6,5 +6,5 @@ use Amsgames\LaravelShop\Models\ShopOrderModel;
 
 class Order extends ShopOrderModel
 {
-	protected $appends = ['displayTotalPrice'];
+	protected $appends = ['displayTotalPrice', 'displayTotal'];
 }

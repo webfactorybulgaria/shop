@@ -9,7 +9,9 @@
     	<h1>@lang('db.Your basket:')</h1>
     	@include('shop::public._summary', ['cart' => $cart, 'canEdit' => true])
 
+        @include('coupons::public._coupon')
         <a href="{{ route($lang.'.shop.checkout') }}">Proceed to checkout</a>
+
     @else
     	@lang('db.Empty basket')
     @endif

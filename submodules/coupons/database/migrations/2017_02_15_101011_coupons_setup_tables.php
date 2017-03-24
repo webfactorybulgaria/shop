@@ -18,8 +18,10 @@ class CouponsSetupTables extends Migration
             $table->string('name');
             $table->string('description', 1024)->nullable();
             $table->string('sku');
+            $table->integer('total_available')->default(0);
+            $table->integer('total_available_user')->default(0);
             $table->decimal('value', 20, 2)->nullable();
-            $table->decimal('discount', 3, 2)->nullable();
+            $table->decimal('discount', 4, 2)->nullable();
             $table->integer('active')->default(1);
             $table->dateTime('starts_at')->nullable();
             $table->dateTime('expires_at')->nullable();

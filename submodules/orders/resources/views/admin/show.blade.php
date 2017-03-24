@@ -18,7 +18,11 @@
 			<h2>@lang('db.Purchased products')</h2>
 
 			@foreach($order->items as $item)
+				@if($item->reference_id)
 				<p><a href="{{ route('admin::edit-product', $item->reference_id) }}">Product info page</a></p>
+				@else
+				<p><strong>Coupon</strong></p>
+				@endif
 				<p>sku: {{$item->sku}}</p>
 				<p>quantity: {{$item->quantity}}</p>
 				<p>price: {{$item->price}}</p>

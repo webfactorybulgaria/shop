@@ -8,7 +8,10 @@ use Shop;
 use TypiCMS\Modules\Orders\Shells\Models\Order;
 use TypiCMS\Modules\Shop\Shells\Models\Cart;
 use TypiCMS\Modules\Shop\Shells\Models\Item;
+use TypiCMS\Modules\Coupons\Models\Coupon;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Config;
+use DB;
 
 class PublicController extends BasePublicController
 {
@@ -86,23 +89,22 @@ class PublicController extends BasePublicController
     {
         if(Auth::check()) {
             Shop::setGateway('paypalExpress');
-
             if (!Shop::checkout()) {
                 echo Shop::exception()->getMessage(); // card validation error.
             } else {
-                $order = Shop::placeOrder();
+                $order = Shop::placeOrder(Cart::current());
+
                 if ($order->hasFailed) {
                     dd(Shop::exception());
                     echo Shop::exception()->getMessage(); // payment error.
                 }
 
-                if ($order->isPending) {
+                if ($order->isPending || $order->isCompleted) {
+                    // PayPal URL to redirect to proceed with payment
+                    $approvalUrl = Shop::gateway()->getApprovalUrl();
 
-                  // PayPal URL to redirect to proceed with payment
-                  $approvalUrl = Shop::gateway()->getApprovalUrl();
-
-                  // Redirect to url
-                  return redirect($approvalUrl);
+                    // Redirect to url
+                    return redirect($approvalUrl);
                 }
             }
         }
@@ -117,7 +119,31 @@ class PublicController extends BasePublicController
     public function confirmation()
     {
         $order = Order::find(Input::get('order'));
+        $discount = '';
+        /*
+        //update coupon's total available value
+        if (!is_null(session('coupon'))) {
+            Coupon::where('id', session('coupon')->id)->decrement('total_available', 1);
+            DB::table(Config::get('shop.item_table'))
+                ->insert([
+                    'user_id' => Auth::user()->id,
+                    'session_id' => session('visitor_id'),
+                    'cart_id' => null, 
+                    'order_id' => $order->id,
+                    'sku' => session('coupon')->sku,
+                    'tax' => 0,
+                    'shipping' => 0,
+                    'discount' => 0,
+                    'price' => 0 - $order->totalDiscount,
+                    'currency' => Config::get('shop.currency'),
+                    'quantity' => 1,
+                    'class' => 'TypiCMS\Modules\Products\Shells\Models\Product'
+                ]);
+            $discount = session('coupon')->value;
+            session()->forget('coupon');
+        }
+        */
 
-        return view('shop::public.confirmation')->with(compact('order'));
+        return view('shop::public.confirmation')->with(compact('order', 'discount'));
     }
 }

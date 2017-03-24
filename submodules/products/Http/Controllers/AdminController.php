@@ -8,6 +8,7 @@ use TypiCMS\Modules\Products\Shells\Models\Product;
 use TypiCMS\Modules\Products\Shells\Repositories\ProductInterface;
 use Attributes;
 use Combinations;
+use DB;
 
 class AdminController extends BaseAdminController
 {
@@ -85,7 +86,7 @@ class AdminController extends BaseAdminController
      */
     public function update(Product $product, FormRequest $request)
     {
-        $this->repository->update($request->all());
+        $res = $this->repository->update($request->all(), ['product_categories']);
 
         return $this->redirect($request, $product);
     }

@@ -44,13 +44,12 @@
                                 <td></td>
                             </tr>
                         </thead>
-
                         <tbody>
                             <tr ng-repeat="model in displayedModels">
                                 <td>@{{ model.id }}</td>
                                 <td>@{{ model.created_at }}</td>
                                 <td>@{{ model.statusCode }}</td>
-                                <td>@{{ model.displayTotalPrice }}</td>
+                                <td>@{{ model.displayTotal }}</td>
                                 <td><a href="orders/@{{ model.id }}">View order</a></td>
                             </tr>
                         </tbody>

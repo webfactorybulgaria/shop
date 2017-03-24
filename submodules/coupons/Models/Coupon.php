@@ -33,6 +33,8 @@ class Coupon extends Base
         'discount',
         'name',
         'description',
+        'total_available',
+        'total_available_user',
         'starts_at',
         'expires_at'
     ];

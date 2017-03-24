@@ -8,6 +8,7 @@ use TypiCMS\Modules\Coupons\Shells\Models\Coupon;
 use TypiCMS\Modules\Coupons\Shells\Repositories\CouponInterface as Repository;
 use TypiCMS\Modules\Coupons\Shells\Http\Requests\PublicRequest;
 use TypiCMS\Modules\Shop\Shells\Models\Cart;
+use Carbon\Carbon;
 
 class ApiController extends BaseApiController
 {
@@ -80,13 +81,25 @@ class ApiController extends BaseApiController
     {
         $promocode = $this->repository->getFirstBy('code', $request->coupon);
 
-        if($promocode) {
-            $cart = Cart::current();
-            $cart->setCoupon($promocode);
-        }
+        $cart = Cart::current();
 
+        if($promocode) {
+            if (!Carbon::now()->between(Carbon::parse($promocode->starts_at), Carbon::parse($promocode->expires_at)) || $promocode->total_available == 0) {
+                $promocode->expired = true;
+            }
+            elseif ($promocode->value > 0 && $promocode->value > $cart->totalPrice) {
+                $promocode->overlimit = true;
+            }
+            else {
+                $cart->setCoupon($promocode);
+                $cart = Cart::current();
+            }
+        }
         return response()->json([
             'promocode' => $promocode,
+            'discount' => $cart->displayTotalDiscount,
+            'price' => $cart->displayTotalPrice,
+            'total' => $cart->displayTotal
         ]);
     }
 
@@ -97,10 +110,15 @@ class ApiController extends BaseApiController
      */
     public function remove()
     {
+        $cart = Cart::current();
+
         session()->forget('coupon');
-        if (session('coupon') == null) {
+        if (is_null(session('coupon'))) {
             return response()->json([
                 'removed' => true,
+                'discount' => $cart->displayTotalDiscount,
+                'price' => $cart->displayTotalPrice,
+                'total' => $cart->displayTotal
             ]);
         }
     }

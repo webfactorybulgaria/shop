@@ -53,6 +53,8 @@
         {!! TranslatableBootForm::checkbox(trans('validation.attributes.online'), 'status') !!}
         {!! TranslatableBootForm::textarea(trans('validation.attributes.summary'), 'summary')->rows(4) !!}
         {!! TranslatableBootForm::textarea(trans('validation.attributes.body'), 'body')->addClass('ckeditor') !!}
+        @include('core::admin._galleries-fieldset')
+        @include('product-categories::admin._fieldset')
     </div>
 
     <div class="tab-pane fade" id="tab-settings">
@@ -154,11 +156,10 @@
                         <th style="width: 100px;">Price</th>
                         <th style="width: 50px;"></th>
                     </tr>
-
                     <tr ng-repeat="(key, combination) in combinations">
                         <td style="line-height: 34px;">
 
-                            <span ng-repeat="attribute in TypiCMS.attributes">
+                            <span ng-repeat="attribute in attributes">
                                 <span ng-if="combination.attrs.indexOf(attribute.id + '') !== -1">
                                     <span ng-show="attributes[attribute.id].attribute_group.type == 'colorbox'" class="color-attribute" style="background-color: @{{ attributes[attribute.id].value }}"></span>
                                     <span ng-bind="attributes[attribute.id].value" class="attribute-value"></span>;&nbsp;&nbsp;

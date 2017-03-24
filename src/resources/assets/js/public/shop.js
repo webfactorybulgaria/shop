@@ -114,42 +114,64 @@ $(function(){
 
     $('#apply-promo').click(function(e){
         e.preventDefault();
-        var formData = { coupon : $('#coupon').val() };
+        var formData,price,discount; 
+        formData = { coupon : $('#coupon').val() };
         $.ajax({
             url: '/api/coupons/process',
             type:'GET',
             data:formData,
             success:function(data) {
-                if (data.promocode) {
+                $('.promo-error').addClass('hidden');
+                if (data.promocode && !data.promocode.expired && !data.promocode.overlimit) {
                     $('.code').text(data.promocode.code);
                     $('.applied-promocode').removeClass('hidden');
-                    $('.ask-for-promo, .promo-invalid').addClass('hidden');
-                    $('.promo-discount-value').text(data.promocode.discount);
-                    $('.promo-value').text(data.promocode.value);
+                    $('.ask-for-promo, .promo-invalid, .promo-overlimit').addClass('hidden');
+                    if(data.promocode.value > 0){
+                        $('.promocode-discount').addClass('hidden');
+                        $('.promo-value').removeClass('hidden').text(data.promocode.value);                    
+                    } else {
+                        $('.promocode-value').addClass('hidden');
+                        $('.promo-discount-value').removeClass('hidden').text(data.promocode.discount);                    
+                    }
+                    $('.total-price').text(data.price);
+                    $('.total-discount').text(data.discount);
+                    $('.total').text(data.total);
                 }
                 else {
-                    $('.ask-for-promo, .promo-invalid').removeClass('hidden');
+                    if (data.promocode && data.promocode.overlimit) {
+                        $('.ask-for-promo, .promo-overlimit').removeClass('hidden');
+                    }
+                    else {
+                        $('.ask-for-promo, .promo-invalid').removeClass('hidden');
+                    }
                     $('.applied-promocode').addClass('hidden');
                 }
             },
             error: function (data) {
-                console.log(data);
+               $('.promo-error').removeClass('hidden').html(data.responseText);
             }
         });
     });
 
     $('#remove-promo').click(function(e){
         e.preventDefault();
-        var formData = {};
+        var formData = { coupon : $('#coupon').val()  };
         $.ajax({
             url: '/api/coupons/remove',
             type:'GET',
             data:formData,
             success:function(data) {
-                console.log(data);
+                if(data.removed) {
+                    $('.applied-promocode').addClass('hidden');
+                    $('.ask-for-promo').removeClass('hidden');
+                    $('#coupon').val('');
+                    $('.total-price').text(data.price);
+                    $('.total-discount').text(data.discount);
+                    $('.total').text(data.total);
+                }
             },
             error: function (data) {
-                console.log(error);
+                console.log('Error! Could not remove promo code');
             }
         });
     });

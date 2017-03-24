@@ -65,6 +65,7 @@ class ModuleProvider extends ServiceProvider
          * Register shop additional modules
          */
         $app->register('TypiCMS\Modules\Products\Shells\Providers\ModuleProvider');
+        $app->register('TypiCMS\Modules\ProductCategories\Shells\Providers\ModuleProvider');
         $app->register('TypiCMS\Modules\Combinations\Shells\Providers\ModuleProvider');
         $app->register('TypiCMS\Modules\Currencies\Shells\Providers\ModuleProvider');
         $app->register('TypiCMS\Modules\Attributes\Shells\Providers\ModuleProvider');

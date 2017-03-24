@@ -21,6 +21,7 @@
             "TypiCMS\\Modules\\Orders\\": "submodules/orders/",
             "TypiCMS\\Modules\\Coupons\\": "submodules/coupons/",
             "TypiCMS\\Modules\\Products\\": "submodules/products/",
+            "TypiCMS\\Modules\\ProductCategories\\": "submodules/product-categories/",
             "TypiCMS\\Modules\\Combinations\\": "submodules/combinations/"
         }
     },

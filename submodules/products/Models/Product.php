@@ -159,4 +159,30 @@ class Product extends Base
         return $this->combinations->keyBy('attribute_combo');
     }
 
+    /**
+     * A product has many galleries.
+     *
+     * @return MorphToMany
+     */
+    public function galleries()
+    {
+        return $this->morphToMany('TypiCMS\Modules\Galleries\Shells\Models\Gallery', 'galleryable')
+            ->withPivot('position')
+            ->orderBy('position')
+            ->withTimestamps();
+    }
+
+    /**
+     * A product has many product categories
+     *
+     * @return MorphToMany
+     */
+    public function product_categories()
+    {
+        return $this->morphToMany('TypiCMS\Modules\ProductCategories\Shells\Models\ProductCategory', 'productcategoryable')
+            ->withPivot('position')
+            ->orderBy('position')
+            ->withTimestamps();
+    }
+
 }
