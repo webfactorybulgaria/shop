@@ -18,6 +18,7 @@
             @include('galleries::public._galleries', ['model' => $model])
             <p>Price: $<span class="js-product-price">{{$model->price}}</span></p>
         </div>
+
         <div class="col-sm-6">
             {!! BootForm::open()->action(route($lang.'.products.add', $model->slug))->role('form') !!}
                 @if( $model->availableAttributes->count() )
@@ -26,7 +27,7 @@
 
                             @if($group->type == 'dropdown' || $group->type == 'radio')
                             <div class="js-attribute-group">
-                                {!! BootForm::select($group->value, 'attribute[]', $group->items)->class('form-control js-attribute') !!}
+                                {!! BootForm::select($group->value, 'product_attribute['.$group->value.']', $group->items)->class('form-control js-attribute') !!}
                             </div>
                             @elseif($group->type == 'colorbox')
                                 Available colors:
@@ -34,7 +35,7 @@
                                 @foreach($group->items as $key => $color)
                                 <label for="{{$group->value . $key}}">
                                     <div class="col-sm-1">
-                                        {!! BootForm::radio('', 'attribute[]', $key)->id($group->value . $key)->class('js-attribute') !!}
+                                        {!! BootForm::radio('', 'product_attribute['.$group->value.']', $key)->id($group->value . $key)->class('js-attribute') !!}
                                     </div>
                                     <div class="col-sm-6">
                                         <div style="border:1px solid gray;width:50px;height:30px;background-color:{{$color}}"></div>
@@ -47,10 +48,10 @@
                     @endforeach
                     <div class="row">
                         <div class="col-sm-6">
-                        {!! BootForm::text('Custom 1', 'custom[dimension1]') !!}
+                        {!! BootForm::text('Custom 1', 'product_custom_attribute[dimension1]') !!}
                         </div>
                         <div class="col-sm-6">
-                        {!! BootForm::text('Custom 2', 'custom[dimension2]') !!}
+                        {!! BootForm::text('Custom 2', 'product_custom_attribute[dimension2]') !!}
                         </div>
                     </div>
                 @endif

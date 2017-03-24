@@ -8,10 +8,13 @@ class ItemAttribute extends Model
 {
 	protected $fillable = [
 		'item_id',
-		'group_class',
-		'group_value',
-		'attribute_class',
-		'attribute_reference_id',
-		'attribute_value'
+		'atribute_object_id',
+		'atribute_object_type'
 	];
+
+    public function atributeObject()
+    {
+        return $this->morphTo();
+    }
+
 }

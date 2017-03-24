@@ -7,14 +7,14 @@ use Laracasts\Presenter\PresentableTrait;
 use TypiCMS\Modules\Core\Shells\Models\Base;
 use TypiCMS\Modules\History\Shells\Traits\Historable;
 use TypiCMS\Modules\Attributes\Shells\Models\AttributeGroup;
-use Amsgames\LaravelShop\Traits\ShopItemTrait;
+use Amsgames\LaravelShop\Traits\ShoppableTrait;
 
 class Product extends Base
 {
     use Historable;
     use PresentableTrait;
     use Translatable;
-    use ShopItemTrait;
+    use ShoppableTrait;
 
     /**
      * Shop specific attributes - title

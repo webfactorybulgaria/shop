@@ -38,8 +38,8 @@ class ShopSetupTables extends Migration
             $table->decimal('discount', 20, 2)->default(0);
             $table->string('currency')->nullable();
             $table->integer('quantity')->unsigned();
-            $table->string('class')->nullable();
-            $table->string('reference_id')->nullable();
+            $table->integer('shoppable_id')->nullable();
+            $table->string('shoppable_type')->nullable();
             $table->char('attributes_hash', 40);
             $table->timestamps();
             $table->foreign('user_id')
@@ -62,18 +62,15 @@ class ShopSetupTables extends Migration
         Schema::create('item_attributes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('item_id')->unsigned();
-            $table->string('group_class')->nullable();
-            $table->string('group_value')->nullable();
-            $table->string('attribute_class')->nullable();
-            $table->string('attribute_reference_id')->nullable();
-            $table->string('attribute_value')->nullable();
+            $table->string('atribute_object_id')->nullable();
+            $table->string('atribute_object_type')->nullable();
+
             $table->timestamps();
             $table->foreign('item_id')
                 ->references('id')
                 ->on('items')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->index(['attribute_reference_id']);
         });
 
         // Create table for storing transactions

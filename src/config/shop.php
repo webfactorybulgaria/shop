@@ -84,7 +84,21 @@ return [
     */
     'item' => 'TypiCMS\Modules\Shop\Shells\Models\Item',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Item Attribute Model
+    |--------------------------------------------------------------------------
+    |
+    | This is the Item Attribute model used by LaravelShop to create correct relations.
+    | Update the model if it is in a different namespace.
+    |
+    */
     'item_attributes' => 'TypiCMS\Modules\Shop\Shells\Models\ItemAttribute',
+
+    'attribute_models' => [
+        'product_attribute' => 'TypiCMS\Modules\Attributes\Shells\Models\Attribute',
+        'product_custom_attribute' => 'TypiCMS\Modules\Attributes\Shells\Models\CustomAttribute',
+    ],
 
     /*
     |--------------------------------------------------------------------------
