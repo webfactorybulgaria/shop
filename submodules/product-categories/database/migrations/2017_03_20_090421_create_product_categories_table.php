@@ -28,6 +28,10 @@ class CreateProductCategoriesTable extends Migration
             $table->boolean('status')->default(0);
             $table->string('title');
             $table->string('slug')->nullable();
+            $table->text('summary')->nullable();
+            $table->text('description')->nullable();
+            $table->string('meta_keywords')->nullable();
+            $table->string('meta_description')->nullable();
             $table->timestamps();
             $table->unique(['product_category_id', 'locale']);
             $table->unique(['locale', 'slug']);

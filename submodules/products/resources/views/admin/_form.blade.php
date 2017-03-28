@@ -114,14 +114,14 @@
     <div class="tab-pane fade in active" id="tab-combinations">
         <div class="row">
             <div class="col-sm-12">
-                {!! BootForm::text(trans('products::global.attributes.attributes'), 'attributes')->value(old('attributes') ? : implode(', ', $model->attributes->pluck('value')->all())) !!}
+                {!! BootForm::text(trans('products::global.attributes.attributes'), 'attributes')->value(old('attributes') ? : implode(', ', $model->attributeObjects->pluck('value')->all())) !!}
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6">
                 <div class="row">
                     <div class="col-sm-6">
-                        <div ng-repeat="(key, value) in product.attributes" >
+                        <div ng-repeat="(key, value) in product.attribute_objects" >
                             <div class="form-group">
                                 <label class="isteven-label" style="display: block;" ng-bind="value.value"></label>
                                 <isteven-multi-select
@@ -139,7 +139,7 @@
                             <input class="form-control" type="text" ng-model="defaultStock">
                         </div>
                         <div class="form-group">
-                            <span ng-if="product.attributes" class="multiSelect inlineBlock">
+                            <span ng-if="product.attribute_objects" class="multiSelect inlineBlock">
                                 <button type="button" ng-click="generate()" ng-disabled="loading">@lang('products::global.attributes.generate')</button>
                             </span>
                         </div>

@@ -1,6 +1,6 @@
 <div id="insertCombinationsApp" ng-controller="combinationController">
     <form id="comboForm" name="comboForm">
-        <div class="form-group" data-ng-class="{'has-error' : comboForm[value.value].$invalid && (submitted || comboForm[value.value].$touched)}" ng-repeat="(key, value) in product.attributes">
+        <div class="form-group" data-ng-class="{'has-error' : comboForm[value.value].$invalid && (submitted || comboForm[value.value].$touched)}" ng-repeat="(key, value) in product.attribute_objects">
             <label class="control-label" for="@{{value.value}}">@{{value.value}}</label>
             <select class="form-control"
                     name="@{{value.value}}"

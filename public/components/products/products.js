@@ -243,8 +243,8 @@ angular.module('products')
     }
 
     function loadProduct(product){
-        if(product && product.attributes) {
-            product.attributes.forEach(function(val){
+        if(product && product.attribute_objects) {
+            product.attribute_objects.forEach(function(val){
                 val.items.forEach(function(v){
                     if(val.type == 'colorbox') {
                         v.label = v.value+'<span style="position: absolute;border:1px solid gray;width: 90px;height: 25px;background-color:'+v.value+';top: 1px;left: 185px;"></span>';
@@ -354,7 +354,7 @@ angular.module('combinations')
         $scope.newCombination.price = 0;
         $scope.showInsertFields = false;
         $scope.showInsertButton = true;
-        angular.forEach($scope.product.attributes, function(value, key){
+        angular.forEach($scope.product.attribute_objects, function(value, key){
             $scope.comboForm[value.value].$setUntouched();
         });
         $.fancybox.close();

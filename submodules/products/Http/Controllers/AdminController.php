@@ -49,8 +49,9 @@ class AdminController extends BaseAdminController
      */
     public function edit(Product $product)
     {
-        $product->load('attributes');
-        $product->attributes->load('items');
+        $product->load('attributeObjects');
+        // $product->attributeObjects->load('items');
+        // dd($product->attributeObjects[0]->items);
         $attributes = Attributes::all(['attributeGroup']);
         $combinations = Combinations::allBy('product_id', $product->id, [], true);
 

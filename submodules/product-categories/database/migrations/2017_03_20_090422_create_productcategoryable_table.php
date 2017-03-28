@@ -12,7 +12,7 @@ class CreateProductcategoryableTable extends Migration
      */
     public function up()
     {
-        Schema::create('productcategoryable', function (Blueprint $table) {
+        Schema::create('productcategoryables', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_category_id')->unsigned();
             $table->integer('productcategoryable_id')->unsigned();
@@ -30,6 +30,6 @@ class CreateProductcategoryableTable extends Migration
      */
     public function down()
     {
-        Schema::drop('productcategoryable');
+        Schema::drop('productcategoryables');
     }
 }
