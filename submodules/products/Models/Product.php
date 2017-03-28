@@ -102,7 +102,7 @@ class Product extends Base
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
-    public function attributes()
+    public function attributeObjects()
     {
         return $this->morphToMany('TypiCMS\Modules\Attributes\Shells\Models\AttributeGroup', 'attributable')
             ->with('items')
@@ -132,7 +132,7 @@ class Product extends Base
 
     public function getAvailableAttributesAttribute()
     {
-        $availableAttributes = $this->attributes()->get();
+        $availableAttributes = $this->attributeObjects;
 
         $combinations = $this->combinations;
         $available = [];
@@ -144,14 +144,18 @@ class Product extends Base
             $available = array_flip($available);
 
         }
+
+        $retAvailableAttributes = [];
         foreach ($availableAttributes as $key => $group) {
-            $availableAttributes[$key]->items =
+            $retAvailableAttributes[$key] = clone $group;
+
+            $retAvailableAttributes[$key]->items =
                     empty($available) ?
                     $group->items->pluck('value', 'id')->all() :
                     array_intersect_key($group->items->pluck('value', 'id')->all(), $available);
         }
-        // dd($availableAttributes);
-        return $availableAttributes;
+
+        return $retAvailableAttributes;
     }
 
     public function getAvailableCombinationsAttribute()

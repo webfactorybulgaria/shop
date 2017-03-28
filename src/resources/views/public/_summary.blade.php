@@ -4,14 +4,14 @@
     <br />
     <div class="col-md-6">Product: </div>
     <div class="col-md-6">
-            {{ $item->product }}
-            @if(!empty($item->readableAttributes))
-            (
-                @foreach($item->readableAttributes as $group => $attribute)
-                    {{$group}}: {{$attribute}},
-                @endforeach
-            )
-            @endif
+        {{ $item->product }}
+        @if(!empty($item->itemAttributes))
+        (
+            @foreach($item->itemAttributes as $attribute)
+                {{$attribute->attribute_object->groupTitle}}: {{$attribute->attribute_object->value}},
+            @endforeach
+        )
+        @endif
     </div>
     <div class="col-md-6">SKU: </div>
     <div class="col-md-6">{{ $item->sku }}</div>

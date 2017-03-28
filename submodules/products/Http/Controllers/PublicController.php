@@ -36,6 +36,8 @@ class PublicController extends BasePublicController
     {
         $model = $this->repository->bySlug($slug);
 
+        $model->load(['attributeObjects','combinations']);
+
         app('JavaScript')->put('currentProduct', $model);
         app('JavaScript')->put('combinations', $model->availableCombinations);
 

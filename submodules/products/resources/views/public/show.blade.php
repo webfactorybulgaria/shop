@@ -21,7 +21,7 @@
 
         <div class="col-sm-6">
             {!! BootForm::open()->action(route($lang.'.products.add', $model->slug))->role('form') !!}
-                @if( $model->availableAttributes->count() )
+                @if( count($model->availableAttributes) )
                     @foreach($model->availableAttributes as $group)
                         @if(count($group->items))
 

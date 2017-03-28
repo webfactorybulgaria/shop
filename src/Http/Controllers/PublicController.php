@@ -24,6 +24,9 @@ class PublicController extends BasePublicController
     {
         $cart = Cart::current();
 
+        // eager load items and attributes
+        $cart->load('items.itemAttributes.attributeObject.attributeGroup');
+
         return view('shop::public.basket')
             ->with(compact('cart'));
     }

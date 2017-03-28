@@ -62,8 +62,8 @@ class ShopSetupTables extends Migration
         Schema::create('item_attributes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('item_id')->unsigned();
-            $table->string('atribute_object_id')->nullable();
-            $table->string('atribute_object_type')->nullable();
+            $table->string('attribute_object_id')->nullable();
+            $table->string('attribute_object_type')->nullable();
 
             $table->timestamps();
             $table->foreign('item_id')
