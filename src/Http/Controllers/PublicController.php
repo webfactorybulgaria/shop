@@ -73,6 +73,8 @@ class PublicController extends BasePublicController
     public function checkout()
     {
         $cart = Cart::current();
+        $cart->load('items.itemAttributes.attributeObject.attributeGroup');
+
         $user = Auth::user();
 
         if(session('coupon')) {
@@ -122,6 +124,8 @@ class PublicController extends BasePublicController
     public function confirmation()
     {
         $order = Order::find(Input::get('order'));
+        $order->load('items.itemAttributes.attributeObject.attributeGroup');
+
         $discount = '';
         /*
         //update coupon's total available value
@@ -131,7 +135,7 @@ class PublicController extends BasePublicController
                 ->insert([
                     'user_id' => Auth::user()->id,
                     'session_id' => session('visitor_id'),
-                    'cart_id' => null, 
+                    'cart_id' => null,
                     'order_id' => $order->id,
                     'sku' => session('coupon')->sku,
                     'tax' => 0,

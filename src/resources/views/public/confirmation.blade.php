@@ -3,6 +3,7 @@
 @section('bodyClass', 'body-shop body-shop-confirmation body-page body-page-'.$page->id)
 
 @section('main')
+<div class="container">
 	@if($order->statusCode == 'completed')
     	<h1>@lang('db.Purchase has been successfully created')</h1>
     @else
@@ -13,4 +14,5 @@
     @if(!empty($order->items) && $order->items->count())
         @include('shop::public._summary', ['cart' => $order])
     @endif
+</div>
 @endsection

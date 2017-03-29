@@ -7,6 +7,7 @@
 @section('bodyClass', 'body-products body-product-'.$model->id.' body-page body-page-'.$page->id)
 
 @section('main')
+<div class="container">
 
     @include('core::public._btn-prev-next', ['module' => 'Products', 'model' => $model])
     <article class="row">
@@ -60,5 +61,5 @@
             {!! BootForm::close() !!}
         </div>
     </article>
-
+</div>
 @endsection

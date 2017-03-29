@@ -3,12 +3,13 @@
 @section('bodyClass', 'body-shop body-shop-checkout body-page body-page-'.$page->id)
 
 @section('main')
+<div class="container">
 
     @if ($cart->items->count())
 
     	<h1>@lang('db.Your summary:')</h1>
         @include('shop::public._summary', ['cart' => $cart])
-        
+
         @if(1) {{-- TODO: check for standart / digital product --}}
 
             @if(!empty($user))
@@ -56,5 +57,5 @@
     @else
     	@lang('db.Empty summary')
     @endif
-
+</div>
 @endsection

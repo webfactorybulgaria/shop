@@ -3,6 +3,7 @@
 @section('bodyClass', 'body-shop body-shop-basket body-page body-page-'.$page->id)
 
 @section('main')
+<div class="container">
 
     @if (!empty($cart->items) && $cart->items->count())
 
@@ -16,4 +17,5 @@
     	@lang('db.Empty basket')
     @endif
 
+</div>
 @endsection
