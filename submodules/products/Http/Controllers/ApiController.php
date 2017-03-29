@@ -48,7 +48,7 @@ class ApiController extends BaseApiController
     public function getOne($product)
     {
         $product = $this->repository->make()->where('products.id', $product)->first();
-        $product->load('attribute_objects');
+        $product->load('attributeObjects');
         // $product->attributes->load('items');
 
         return response()->json([
