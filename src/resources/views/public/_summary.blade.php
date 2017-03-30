@@ -18,7 +18,7 @@
     <div class="col-md-6">Price: </div>
     <div class="col-md-6">{{ $item->currency }} {{ $item->price }}</div>
     <div class="col-md-6">Tax: </div>
-    <div class="col-md-6">{{ $item->price }}</div>
+    <div class="col-md-6">{{ $item->tax }}</div>
 
     <div class="col-md-6">Quantity: </div>
     @if(!empty($canEdit))

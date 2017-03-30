@@ -14,7 +14,9 @@ class Product extends Base
     use Historable;
     use PresentableTrait;
     use Translatable;
-    use ShoppableTrait;
+    use ShoppableTrait {
+        getSpecificBasePrice as traitGetSpecificBasePrice;
+    }
 
     /**
      * Shop specific attributes - title
@@ -188,5 +190,27 @@ class Product extends Base
             ->orderBy('position')
             ->withTimestamps();
     }
+    public function getSpecificBasePrice($qtty, $attributes, $cart)
+    {
+        if (!empty($attributes)) {
+            $availableCombinations = $this->availableCombinations;
+            if (!empty($availableCombinations)) {
+                $arrAttributeIds = [];
+                foreach($attributes as $attr) {
+                    if ($attr->attribute_object_type == config('shop.attribute_models.product_attribute')) {
+                        $arrAttributeIds[] = $attr->attribute_object_id;
+                    }
+                }
 
+                sort($arrAttributeIds, SORT_NUMERIC);
+                $key = implode(',', $arrAttributeIds);
+
+                if (!empty($this->availableCombinations[$key])){
+                    return $this->availableCombinations[$key]->price;
+                }
+            }
+        }
+
+        return $this->traitGetSpecificBasePrice($qtty, $attributes, $cart);
+    }
 }
