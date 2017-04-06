@@ -205,7 +205,7 @@ class Product extends Base
                 sort($arrAttributeIds, SORT_NUMERIC);
                 $key = implode(',', $arrAttributeIds);
 
-                if (!empty($this->availableCombinations[$key])){
+                if (!empty($this->availableCombinations[$key]) && ($this->availableCombinations[$key]->price > 0)){
                     return $this->availableCombinations[$key]->price;
                 }
             }

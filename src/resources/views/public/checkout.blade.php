@@ -10,12 +10,59 @@
     	<h1>@lang('db.Your summary:')</h1>
         @include('shop::public._summary', ['cart' => $cart])
 
+        @if(1) {{-- TODO: check if promo functionality is enabled in settings --}}
+            @include('coupons::public._coupon')
+        @endif
+
         @if(1) {{-- TODO: check for standart / digital product --}}
 
             @if(!empty($user))
                 @if(!empty($user->addresses) && $user->addresses->count())
-                    @lang('db.Choose shipping address')
-                    @include('users::public._address-list', ['addresses' => $user->addresses])
+
+
+{!! BootForm::open()->action(route($lang.'.shop.purchase')) !!}
+
+@lang('db.Choose shipping address')
+@foreach($user->addresses as $address)
+<div class="row">
+    {!! BootForm::radio($address->first_name . ' ' . $address->last_name, 'shipping_address', $address->id) !!}
+    {{$address->address}}<br>
+    {{$address->address2}}<br>
+    {{$address->city}} {{$address->state}} {{$address->postcode}}<br>
+    {{$address->country}}<br>
+    {{$address->phone}}<br>
+    last updated: {{$address->updated_at}}<br>
+    <a href="{{ route('editAddress-profile', $address->id) }}">Edit</a>
+</div>
+<hr>
+@endforeach
+
+{!! BootForm::checkbox('Billing address is different', 'billing_address_different', false)->attribute('onclick', "$('#billing-address-container').toggle(this.checked)") !!}
+
+<div id="billing-address-container" style="display:none">
+
+@lang('db.Choose shipping address')
+@foreach($user->addresses as $address)
+<div class="row">
+    {!! BootForm::radio($address->first_name . ' ' . $address->last_name, 'billing_address', $address->id) !!}
+    {{$address->address}}<br>
+    {{$address->address2}}<br>
+    {{$address->city}} {{$address->state}} {{$address->postcode}}<br>
+    {{$address->country}}<br>
+    {{$address->phone}}<br>
+    last updated: {{$address->updated_at}}<br>
+    <a href="{{ route('editAddress-profile', $address->id) }}">Edit</a>
+</div>
+<hr>
+@endforeach
+
+</div>
+
+{!! BootForm::submit('Buy Now!')->class('btn btn-primary') !!}
+
+
+{!! BootForm::close() !!}
+
                 @else
                     @lang('db.No shipping address found')
                 @endif
@@ -50,9 +97,6 @@
             @endif
         @endif
 
-        @if(1) {{-- TODO: check if promo functionality is enabled in settings --}}
-            @include('coupons::public._coupon')
-        @endif
         <a href="{{ route($lang.'.shop.purchase') }}">Buy Now!</a>
     @else
     	@lang('db.Empty summary')

@@ -12,6 +12,7 @@ class OrdersSetupTables extends Migration
     public function up()
     {
         Schema::create('order_status', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->string('code', 32);
             $table->string('name');
             $table->string('description')->nullable();
@@ -20,6 +21,7 @@ class OrdersSetupTables extends Migration
         });
         // Create table for storing carts
         Schema::create('orders', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->integer('user_id')->unsigned();
             $table->string('statusCode', 32);

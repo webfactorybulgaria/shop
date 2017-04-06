@@ -5,10 +5,11 @@ namespace TypiCMS\Modules\Shop\Http\Controllers;
 use TypiCMS\Modules\Core\Shells\Http\Controllers\BasePublicController;
 use Auth;
 use Shop;
+use TypiCMS\Modules\Coupons\Shells\Models\Coupon;
 use TypiCMS\Modules\Orders\Shells\Models\Order;
 use TypiCMS\Modules\Shop\Shells\Models\Cart;
 use TypiCMS\Modules\Shop\Shells\Models\Item;
-use TypiCMS\Modules\Coupons\Models\Coupon;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Config;
 use DB;
@@ -92,15 +93,22 @@ class PublicController extends BasePublicController
      */
     public function purchase()
     {
+
         if(Auth::check()) {
+            $cart = Cart::current();
+
+            $data = Request::all();
+            if (!empty($data['shipping_address']))
+                $cart->setAddresses($data['shipping_address'], empty($data['billing_address']) ? null : $data['billing_address']);
+
             Shop::setGateway('paypalExpress');
-            if (!Shop::checkout()) {
+            if (!Shop::checkout($cart)) {
                 echo Shop::exception()->getMessage(); // card validation error.
             } else {
-                $order = Shop::placeOrder(Cart::current());
+                $order = Shop::placeOrder($cart);
 
                 if ($order->hasFailed) {
-                    dd(Shop::exception());
+                    // dd(Shop::exception());
                     echo Shop::exception()->getMessage(); // payment error.
                 }
 
@@ -126,8 +134,8 @@ class PublicController extends BasePublicController
         $order = Order::find(Input::get('order'));
         $order->load('items.itemAttributes.attributeObject.attributeGroup');
 
-        $discount = '';
         /*
+        $discount = '';
         //update coupon's total available value
         if (!is_null(session('coupon'))) {
             Coupon::where('id', session('coupon')->id)->decrement('total_available', 1);

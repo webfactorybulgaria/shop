@@ -59,7 +59,7 @@
 
     <div class="tab-pane fade" id="tab-settings">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <h2>Base Product Settings</h2>
                 <i>Here you can define the base price rules for this product. It will be used, if no specific price rules are applied</i>
                 <div class="row">
@@ -82,6 +82,7 @@
                     </div>
                 </div>
             </div>
+<?php /*
             <div class="col-sm-6">
                 <h2>Specific Product Prices</h2>
                 <i>Here you can set specific price rules for clients using different currencies, etc.</i>
@@ -108,6 +109,7 @@
                     </div>
                 </div>
             </div>
+*/?>
         </div>
     </div>
 

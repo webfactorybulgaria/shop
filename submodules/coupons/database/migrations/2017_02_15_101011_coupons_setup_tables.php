@@ -13,6 +13,7 @@ class CouponsSetupTables extends Migration
     {
         // Create table for storing coupons
         Schema::create('coupons', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('code')->unique();
             $table->string('name');

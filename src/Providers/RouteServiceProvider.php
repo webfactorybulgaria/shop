@@ -42,7 +42,7 @@ class RouteServiceProvider extends ServiceProvider
                         $router->get($uri.'/checkout', $options + ['as' => $lang.'.shop.checkout', 'uses' => 'PublicController@checkout']);
                         $options = ['middleware' => 'auth'];
                         $router->get($uri.'/callback', $options + ['as' => $lang.'.shop.callback', 'uses' => 'CallbackController@process']);
-                        $router->get($uri.'/purchase', $options + ['as' => $lang.'.shop.purchase', 'uses' => 'PublicController@purchase']);
+                        $router->post($uri.'/purchase', $options + ['as' => $lang.'.shop.purchase', 'uses' => 'PublicController@purchase']);
                         $router->get($uri.'/confirmation', $options + ['as' => $lang.'.shop.confirmation', 'uses' => 'PublicController@confirmation']);
                     }
                 }

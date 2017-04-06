@@ -12,16 +12,24 @@ class CreateUserAddressesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_addresses', function (Blueprint $table) {
+        Schema::create('order_addresses', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->bigInteger('order_id')->unsigned()->nullable();
             $table->integer('user_id')->unsigned();
+            $table->integer('user_address_id')->unsigned();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('company');
             $table->string('country');
+            $table->string('state');
             $table->string('city');
             $table->string('address');
             $table->string('address2');
             $table->string('postcode');
+            $table->string('phone');
             $table->timestamps();
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
@@ -33,6 +41,6 @@ class CreateUserAddressesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('user_addresses');
+        Schema::drop('order_addresses');
     }
 }

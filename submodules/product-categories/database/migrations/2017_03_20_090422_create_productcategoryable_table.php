@@ -13,6 +13,7 @@ class CreateProductcategoryableTable extends Migration
     public function up()
     {
         Schema::create('productcategoryables', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('product_category_id')->unsigned();
             $table->integer('productcategoryable_id')->unsigned();

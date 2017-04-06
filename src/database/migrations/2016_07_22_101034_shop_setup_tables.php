@@ -13,6 +13,7 @@ class ShopSetupTables extends Migration
     {
         // Create table for storing carts
         Schema::create('cart', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->integer('user_id')->unsigned();
             $table->string('session_id');
@@ -26,6 +27,7 @@ class ShopSetupTables extends Migration
         });
         // Create table for storing items
         Schema::create('items', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->integer('user_id')->unsigned();
             $table->string('session_id');
@@ -60,6 +62,7 @@ class ShopSetupTables extends Migration
         });
         // Create table for storing item attributes
         Schema::create('item_attributes', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->integer('item_id')->unsigned();
             $table->string('attribute_object_id')->nullable();
@@ -75,6 +78,7 @@ class ShopSetupTables extends Migration
 
         // Create table for storing transactions
         Schema::create('transactions', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->bigInteger('order_id')->unsigned();
             $table->string('gateway', 64);

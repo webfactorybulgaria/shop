@@ -16,9 +16,9 @@
     <div class="col-md-6">SKU: </div>
     <div class="col-md-6">{{ $item->sku }}</div>
     <div class="col-md-6">Price: </div>
-    <div class="col-md-6">{{ $item->currency }} {{ $item->price }}</div>
+    <div class="col-md-6">{{ Shop::format($item->price) }}</div>
     <div class="col-md-6">Tax: </div>
-    <div class="col-md-6">{{ $item->tax }}</div>
+    <div class="col-md-6">{{ Shop::format($item->tax) }}</div>
 
     <div class="col-md-6">Quantity: </div>
     @if(!empty($canEdit))
@@ -36,8 +36,13 @@
 @endforeach
 
 <hr>
-<p>@lang('db.Discount:') <span class="total-discount">{{ isset($discount) ? $discount : $cart->displayTotalDiscount }}</span></p>
-<p>@lang('db.Price:') <span class="total-price">{{ $cart->displayTotalPrice }}</span></p>
+@if ($cart->totalDiscount)
+    <p>@lang('db.Base price:') <span class="total-price">{{ Shop::format($cart->totalPrice + (isset($discount) ? $discount : $cart->totalDiscount)) }}</span></p>
+    <p>@lang('db.Discount:') <span class="total-discount">-{{ Shop::format(isset($discount) ? $discount : $cart->totalDiscount) }}</span></p>
+    <p>@lang('db.Subtotal:') <span class="total-discount">{{ $cart->displayTotalPrice }}</span></p>
+@else
+    <p>@lang('db.Price:') <span class="total-price">{{ $cart->displayTotalPrice }}</span></p>
+@endif
 <p>@lang('db.Tax:') {{ $cart->displayTotalTax }}</p>
 <p>@lang('db.Shipping:') {{ $cart->displayTotalShipping }}</p>
 <hr>
