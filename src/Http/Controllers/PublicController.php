@@ -101,7 +101,7 @@ class PublicController extends BasePublicController
             if (!empty($data['shipping_address']))
                 $cart->setAddresses($data['shipping_address'], empty($data['billing_address']) ? null : $data['billing_address']);
 
-            Shop::setGateway('paypalExpress');
+            Shop::setGateway('omnipayPaypalExpress');
             if (!Shop::checkout($cart)) {
                 echo Shop::exception()->getMessage(); // card validation error.
             } else {
@@ -133,31 +133,6 @@ class PublicController extends BasePublicController
     {
         $order = Order::find(Input::get('order'));
         $order->load('items.itemAttributes.attributeObject.attributeGroup');
-
-        /*
-        $discount = '';
-        //update coupon's total available value
-        if (!is_null(session('coupon'))) {
-            Coupon::where('id', session('coupon')->id)->decrement('total_available', 1);
-            DB::table(Config::get('shop.item_table'))
-                ->insert([
-                    'user_id' => Auth::user()->id,
-                    'session_id' => session('visitor_id'),
-                    'cart_id' => null,
-                    'order_id' => $order->id,
-                    'sku' => session('coupon')->sku,
-                    'tax' => 0,
-                    'shipping' => 0,
-                    'discount' => 0,
-                    'price' => 0 - $order->totalDiscount,
-                    'currency' => Config::get('shop.currency'),
-                    'quantity' => 1,
-                    'class' => 'TypiCMS\Modules\Products\Shells\Models\Product'
-                ]);
-            $discount = session('coupon')->value;
-            session()->forget('coupon');
-        }
-        */
 
         return view('shop::public.confirmation')->with(compact('order', 'discount'));
     }

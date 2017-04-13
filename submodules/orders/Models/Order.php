@@ -22,7 +22,7 @@ class Order extends ShopOrderModel
     public function setCouponId($coupon_id)
     {
         $this->coupon_id = $coupon_id;
-        $this->save();
+        return $this;
     }
 
     public function setAddresses($shippingAddress, $billingAddress)
@@ -38,16 +38,24 @@ class Order extends ShopOrderModel
         }
 
         if ($billingAddress) {
-            $arrBillingAddress = $billingAddress->toArray();
-            $arrBillingAddress['user_address_id'] = $arrBillingAddress['id'];
-            $arrBillingAddress['order_id'] = $this->id;
-            unset($arrBillingAddress['id']);
-            $orderBillingAddress = OrderAddress::create($arrBillingAddress);
+            if ($shippingAddress && $billingAddress->id == $shippingAddress->id) {
+                $orderBillingAddress = $orderShippingAddress;
+            } else {
+                $arrBillingAddress = $billingAddress->toArray();
+                $arrBillingAddress['user_address_id'] = $arrBillingAddress['id'];
+                $arrBillingAddress['order_id'] = $this->id;
+                unset($arrBillingAddress['id']);
+                $orderBillingAddress = OrderAddress::create($arrBillingAddress);
+            }
             $this->billing_address_id = $orderBillingAddress->id;
         }
 
-        $this->save();
+        return $this;
+    }
 
-        return true;
+    // You can override the shipping price calculation here:
+    public function getTotalShippingAttribute()
+    {
+        return $this->shipping ?: 0;
     }
 }

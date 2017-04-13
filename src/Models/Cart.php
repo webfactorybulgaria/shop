@@ -45,9 +45,26 @@ class Cart extends ShopCartModel
 
     public function placeOrder($statusCode = null)
     {
+        // Store these before placing the order as it clears the calculations
+        $calculations = [
+            'base_price' => $this->totalPrice + $this->totalDiscount, // totalPrice has the discount subtracted already
+            'tax' => $this->totalTax,
+            'discount' => $this->totalDiscount,
+            'shipping' => $this->totalShipping,
+            'total' => $this->total,
+        ];
+
         $order = parent::placeOrder($statusCode);
+        $order->base_price = $calculations['base_price'];
+        $order->tax = $calculations['tax'];
+        $order->discount = $calculations['discount'];
+        $order->shipping = $calculations['shipping'];
+        $order->total = $calculations['total'];
+
         $order->setAddresses($this->shippingAddress, $this->billingAddress);
         $order->setCouponId($this->coupon_id);
+        $order->save();
+
         return $order;
     }
 
@@ -58,5 +75,10 @@ class Cart extends ShopCartModel
         $this->save();
     }
 
+    // You can override the shipping price calculation here:
+    public function getTotalShippingAttribute()
+    {
+        return 11;
+    }
 
 }
